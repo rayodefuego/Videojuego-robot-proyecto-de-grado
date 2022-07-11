@@ -10,6 +10,10 @@ public class DragableObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
 
+    private bool isDragging = false;
+
+    public bool IsDragging { get { return isDragging; } }
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -20,6 +24,7 @@ public class DragableObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
     {
         print("Start Draging");
         canvasGroup.blocksRaycasts = false;
+        isDragging = true;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -31,12 +36,14 @@ public class DragableObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
     {
         print("End Draging");
         canvasGroup.blocksRaycasts = true;
+        isDragging = false;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         print("Pointer Down");
     }
+
 
     // Start is called before the first frame update
     void Start()
