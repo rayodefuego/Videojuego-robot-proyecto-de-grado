@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class DragableObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerDownHandler
 {
     [SerializeField] Canvas canvas;
+    [SerializeField] Transform objZone;
 
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
@@ -25,6 +26,7 @@ public class DragableObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
         print("Start Draging");
         canvasGroup.blocksRaycasts = false;
         isDragging = true;
+        transform.SetParent(objZone);
     }
 
     public void OnDrag(PointerEventData eventData)

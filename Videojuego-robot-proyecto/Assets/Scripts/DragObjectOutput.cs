@@ -24,12 +24,10 @@ public class DragObjectOutput : MonoBehaviour
         if(collision.gameObject.tag == "Input")
         {
             Transform collisionObject = collision.transform.parent;
-            if
-                (
-                collisionObject.GetComponent<CanvasGroup>().blocksRaycasts == true
-                )
+            if(collisionObject.GetComponent<CanvasGroup>().blocksRaycasts == true)
             {
                 collisionObject.GetComponent<RectTransform>().position = SetPosition.position;
+                collisionObject.SetParent(transform.parent);
             }
         }
     }
