@@ -4,31 +4,63 @@ using UnityEngine;
 
 public class DragObjectOutput : MonoBehaviour
 {
+    private bool selected;
+    private Transform selectedBy;
+
+    private Transform child;
+    private Transform previousChild;
+    public Transform GetChild { get { return child; } }
+
     [SerializeField]private RectTransform SetPosition;
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        
-        if(collision.gameObject.tag == "Input")
+        if (collision.gameObject.tag == "Input")
         {
-            Transform collisionObject = collision.transform.parent;
-            if(collisionObject.GetComponent<CanvasGroup>().blocksRaycasts == true)
+            if (collision.transform.parent.GetComponent<CanvasGroup>().blocksRaycasts == false)
             {
-                collisionObject.GetComponent<RectTransform>().position = SetPosition.position;
-                collisionObject.SetParent(transform.parent);
+                selected = true;
+                selectedBy = collision.transform.parent;
             }
+            
         }
+    }
+
+    private void Update()
+    {
+        if (selected && selectedBy.GetComponent<CanvasGroup>().blocksRaycasts == true)
+        {/*
+            if(selectedBy != child)
+            {
+                SetChild(selectedBy);
+            }
+            */
+            SetChild(selectedBy);//cambiar luego
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Input")
+        {
+            selected = false;
+            selectedBy = null;
+        }
+    }
+
+    public void SetChild(Transform newChild)
+    {
+        print("set child");
+        newChild.GetComponent<RectTransform>().position = SetPosition.position;
+        newChild.SetParent(transform.parent);
+        previousChild = child;
+        child = newChild;
+        /*
+        DragObjectOutput childOutput = child.GetChild(0).GetComponent<DragObjectOutput>();
+        if (childOutput.GetChild != null)
+        {
+            childOutput.SetChild(previousChild);
+        }
+        */
     }
 }
