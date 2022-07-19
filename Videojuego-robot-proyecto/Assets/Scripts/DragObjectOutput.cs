@@ -30,13 +30,9 @@ public class DragObjectOutput : MonoBehaviour
     private void Update()
     {
         if (selected && selectedBy.GetComponent<CanvasGroup>().blocksRaycasts == true)
-        {/*
-            if(selectedBy != child)
-            {
-                SetChild(selectedBy);
-            }
-            */
-            childManager.SetChild(selectedBy);//cambiar luego
+        {
+            childManager.SetChild(selectedBy);
+            Unselect();
         }
     }
 

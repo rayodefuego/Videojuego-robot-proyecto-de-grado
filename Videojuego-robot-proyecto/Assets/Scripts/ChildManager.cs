@@ -15,14 +15,15 @@ public class ChildManager : MonoBehaviour
         print("set child");
         newChild.GetComponent<RectTransform>().position = SetPosition.position;
         newChild.SetParent(transform.parent);
-        previousChild = child;
-        child = newChild;
-        /*
-        DragObjectOutput childOutput = child.GetChild(0).GetComponent<DragObjectOutput>();
-        if (childOutput.GetChild != null)
+        
+        ChildManager childChildManager = newChild.GetChild(0).GetComponent<ChildManager>();
+
+        if(child != null)
         {
-            childOutput.SetChild(previousChild);
+            childChildManager.SetChild(child);
         }
-        */
+
+        child = newChild;
+        
     }
 }
