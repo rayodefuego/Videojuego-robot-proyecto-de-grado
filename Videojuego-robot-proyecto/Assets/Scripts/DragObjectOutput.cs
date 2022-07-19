@@ -7,11 +7,12 @@ public class DragObjectOutput : MonoBehaviour
     private bool selected;
     private Transform selectedBy;
 
-    private Transform child;
-    private Transform previousChild;
-    public Transform GetChild { get { return child; } }
+    private ChildManager childManager;
 
-    [SerializeField]private RectTransform SetPosition;
+    private void Awake()
+    {
+        childManager = GetComponent<ChildManager>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -35,7 +36,7 @@ public class DragObjectOutput : MonoBehaviour
                 SetChild(selectedBy);
             }
             */
-            SetChild(selectedBy);//cambiar luego
+            childManager.SetChild(selectedBy);//cambiar luego
         }
     }
 
@@ -43,24 +44,13 @@ public class DragObjectOutput : MonoBehaviour
     {
         if (collision.gameObject.tag == "Input")
         {
-            selected = false;
-            selectedBy = null;
+            Unselect();
         }
     }
 
-    public void SetChild(Transform newChild)
+    public void Unselect()
     {
-        print("set child");
-        newChild.GetComponent<RectTransform>().position = SetPosition.position;
-        newChild.SetParent(transform.parent);
-        previousChild = child;
-        child = newChild;
-        /*
-        DragObjectOutput childOutput = child.GetChild(0).GetComponent<DragObjectOutput>();
-        if (childOutput.GetChild != null)
-        {
-            childOutput.SetChild(previousChild);
-        }
-        */
+        selected = false;
+        selectedBy = null;
     }
 }
