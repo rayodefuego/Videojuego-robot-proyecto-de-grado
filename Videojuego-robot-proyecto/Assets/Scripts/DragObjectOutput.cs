@@ -49,4 +49,5 @@ public class DragObjectOutput : MonoBehaviour
         selected = false;
         selectedBy = null;
     }
+
 }

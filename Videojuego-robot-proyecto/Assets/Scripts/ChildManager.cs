@@ -6,10 +6,17 @@ public class ChildManager : MonoBehaviour
 {
     [SerializeField] private RectTransform SetPosition;
 
+    private Transform objZone;
+
     private Transform child;
     private Transform previousChild;
 
     public Transform GetChild { get { return child; } }
+
+    private void Awake()
+    {
+        objZone = GameObject.Find("Obj Zone").transform;
+    }
     public void SetChild(Transform newChild)
     {
         print("set child");
@@ -25,5 +32,15 @@ public class ChildManager : MonoBehaviour
 
         child = newChild;
         
+    }
+
+    public void RemoveChild()
+    {
+        child = null;
+    }
+    public void SeparateOfHirarchy()
+    {
+        transform.parent.GetChild(4).GetChild(0).gameObject.GetComponent<ChildManager>().RemoveChild();
+        transform.SetParent(objZone);
     }
 }

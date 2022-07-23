@@ -6,10 +6,10 @@ using UnityEngine.EventSystems;
 public class DragableObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerDownHandler
 {
     [SerializeField] Canvas canvas;
-    [SerializeField] Transform objZone;
 
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
+    private ChildManager childManager;
 
     private bool isDragging = false;
 
@@ -19,6 +19,7 @@ public class DragableObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
+        childManager = transform.GetChild(0).GetComponent<ChildManager>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -26,7 +27,7 @@ public class DragableObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
         print("Start Draging");
         canvasGroup.blocksRaycasts = false;
         isDragging = true;
-        transform.SetParent(objZone);
+        childManager.SeparateOfHirarchy();
     }
 
     public void OnDrag(PointerEventData eventData)
