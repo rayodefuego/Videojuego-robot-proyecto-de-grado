@@ -21,9 +21,9 @@ public class ChildManager : MonoBehaviour
     {
         print("set child");
         newChild.GetComponent<RectTransform>().position = SetPosition.position;
-        newChild.SetParent(transform.parent);
+        newChild.SetParent(transform);
         
-        ChildManager childChildManager = newChild.GetChild(0).GetComponent<ChildManager>();
+        ChildManager childChildManager = newChild.GetComponent<ChildManager>();
 
         if(child != null)
         {
@@ -40,7 +40,7 @@ public class ChildManager : MonoBehaviour
     }
     public void SeparateOfHirarchy()
     {
-        transform.parent.GetChild(4).GetChild(0).gameObject.GetComponent<ChildManager>().RemoveChild();
+        //transform.parent.GetChild(4).GetChild(0).gameObject.GetComponent<ChildManager>().RemoveChild();
         transform.SetParent(objZone);
     }
 }

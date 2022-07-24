@@ -19,12 +19,11 @@ public class DragableObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
-        childManager = transform.GetChild(0).GetComponent<ChildManager>();
+        childManager = GetComponent<ChildManager>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        print("Start Draging");
         canvasGroup.blocksRaycasts = false;
         isDragging = true;
         childManager.SeparateOfHirarchy();
@@ -37,14 +36,13 @@ public class DragableObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        print("End Draging");
         canvasGroup.blocksRaycasts = true;
         isDragging = false;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        print("Pointer Down");
+        //print("Pointer Down");
     }
 
 

@@ -14,14 +14,16 @@ public class DragObjectOutput : MonoBehaviour
         childManager = GetComponent<ChildManager>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void OnCollisionWithInputEnter(Collider2D collision)
     {
         if (collision.gameObject.tag == "Input")
         {
+            print(GetComponent<CanvasGroup>().blocksRaycasts);
             if (collision.transform.parent.GetComponent<CanvasGroup>().blocksRaycasts == false)
             {
                 selected = true;
                 selectedBy = collision.transform.parent;
+                
             }
             
         }
@@ -31,12 +33,13 @@ public class DragObjectOutput : MonoBehaviour
     {
         if (selected && selectedBy.GetComponent<CanvasGroup>().blocksRaycasts == true)
         {
+            print("selected by:" + selectedBy.name);
             childManager.SetChild(selectedBy);
             Unselect();
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    public void OnCollisionWithInputExit(Collider2D collision)
     {
         if (collision.gameObject.tag == "Input")
         {
