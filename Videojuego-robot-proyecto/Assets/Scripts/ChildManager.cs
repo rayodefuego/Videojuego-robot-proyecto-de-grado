@@ -40,7 +40,12 @@ public class ChildManager : MonoBehaviour
     }
     public void SeparateOfHirarchy()
     {
-        //transform.parent.GetChild(4).GetChild(0).gameObject.GetComponent<ChildManager>().RemoveChild();
+
+        ChildManager parentChildManager = transform.parent.GetComponent<ChildManager>();
+        if(parentChildManager != null)
+        {
+            parentChildManager.RemoveChild();
+        }
         transform.SetParent(objZone);
     }
 }
