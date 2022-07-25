@@ -9,17 +9,24 @@ public class DragableObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
+    private ChildManager childManager;
+
+    private bool isDragging = false;
+
+    public bool IsDragging { get { return isDragging; } }
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
+        childManager = GetComponent<ChildManager>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        print("Start Draging");
         canvasGroup.blocksRaycasts = false;
+        isDragging = true;
+        childManager.SeparateOfHirarchy();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -29,14 +36,15 @@ public class DragableObject : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        print("End Draging");
         canvasGroup.blocksRaycasts = true;
+        isDragging = false;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        print("Pointer Down");
+        //print("Pointer Down");
     }
+
 
     // Start is called before the first frame update
     void Start()
